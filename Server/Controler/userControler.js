@@ -53,7 +53,7 @@ export const signUp = async (req, res) => {
         // });
         res.cookie('token', token, {
           httpOnly: true,
-          secure: false, // ✅ Only use `true` in production over HTTPS
+          secure: true, // ✅ Only use `true` in production over HTTPS
           sameSite: 'lax' // Or 'strict' if working
         });
 
@@ -91,7 +91,7 @@ export const login = async (req, res) => {
         // res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'strict' });
         res.cookie('token', token, {
           httpOnly: true,
-          secure: false, // ✅ Only use `true` in production over HTTPS
+          secure: true, // ✅ Only use `true` in production over HTTPS
           sameSite: 'lax' // Or 'strict' if working
         });
         return res.status(200).json({
@@ -276,7 +276,7 @@ export const forgotPassword = async ( req , res ) =>{
         // res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'strict' });
         res.cookie('token', token, {
           httpOnly: true,
-          secure: false, // ✅ Only use `true` in production over HTTPS
+          secure: true, // ✅ Only use `true` in production over HTTPS
           sameSite: 'lax' // Or 'strict' if working
         });
 
