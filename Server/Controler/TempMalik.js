@@ -43,7 +43,7 @@ export const malikSignUp = async (req, res) => {
     const token = generateToken(newMalik._id);
 
     // Set secure cookie
-    res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'strict' });
+    res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'none' });
 
     // Respond with success
     return res.status(201).json({
@@ -85,11 +85,11 @@ export const malikSignUp = async (req, res) => {
 //     // }
 
 //     const token = generateToken(user._id);
-//     // res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'strict' });
+//     // res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'none' });
 // res.cookie('token', token, {
 //           httpOnly: true,
 //           secure: false, // ✅ Only use `true` in production over HTTPS
-//           sameSite: 'strict' // Or 'strict' if working
+//           sameSite: 'none' // Or 'none' if working
 //         });
 //     return res.status(200).json({
 //       message: 'Login successful',
@@ -124,7 +124,7 @@ export const tempMalikLogin = async (req, res) => {
     res.cookie('token', token, {
       httpOnly: true,
       secure: true, // Set true in prod with HTTPS
-      sameSite: 'strict'
+      sameSite: 'none'
     });
 console.log("hii",user)
     return res.status(200).json({
@@ -148,7 +148,7 @@ console.log("hii",user)
 // Logout
 export const malikLogout = async (req, res) => {
   try {
-    res.clearCookie('token', { httpOnly: true, secure: true, sameSite: 'strict' });
+    res.clearCookie('token', { httpOnly: true, secure: true, sameSite: 'none' });
     res.status(200).json({ message: 'Logout successful' });
   } catch (err) {
     console.error('Logout Error:', err);
@@ -200,7 +200,7 @@ export const tempMalikForgotPassword = async (req, res) => {
     await tempMalik.updateOne({ _id: user._id }, { $set: { password: hashedPass } });
 
     const token = generateToken(user._id);
-    res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'strict' });
+    res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'none' });
 
     res.status(200).json({
       message: 'Password reset successfully',
