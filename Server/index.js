@@ -9,8 +9,6 @@ import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
-
-const baseUrl = process.env.BASE_URL;
 const app = express();
 
 connectDB();
@@ -20,9 +18,9 @@ app.use(cors({ origin: 'https://kabadiwala-1.onrender.com', credentials: true })
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(`/${baseUrl}/user`, userRoutes);
-app.use(`/${baseUrl}/admin`, adminRoute);
-app.use(`/${baseUrl}/order`, orderRoute);
+app.use(`/https://kabadiwala-1.onrender.com/user`, userRoutes);
+app.use(`/https://kabadiwala-1.onrender.com/admin`, adminRoute);
+app.use(`/https://kabadiwala-1.onrender.com/order`, orderRoute);
 
 app.listen(5000, () => {
   console.log('🚀 Server running on http://localhost:5000');
