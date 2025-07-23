@@ -89,7 +89,7 @@ export const malikSignUp = async (req, res) => {
 // res.cookie('token', token, {
 //           httpOnly: true,
 //           secure: false, // ✅ Only use `true` in production over HTTPS
-//           sameSite: 'lax' // Or 'strict' if working
+//           sameSite: 'strict' // Or 'strict' if working
 //         });
 //     return res.status(200).json({
 //       message: 'Login successful',
@@ -124,7 +124,7 @@ export const tempMalikLogin = async (req, res) => {
     res.cookie('token', token, {
       httpOnly: true,
       secure: true, // Set true in prod with HTTPS
-      sameSite: 'lax'
+      sameSite: 'strict'
     });
 console.log("hii",user)
     return res.status(200).json({
