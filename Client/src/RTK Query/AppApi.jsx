@@ -4,7 +4,7 @@ export const AppApi = createApi({
     reducerPath: "AppApi",
     refetchOnFocus: true, // need listener in store
     refetchOnReconnect: true,  // need listener in store
-    baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/kabadiwala/api" }),
+    baseQuery: fetchBaseQuery({ baseUrl: "https://kabadiwala.onrender.com" }),
     credentials: 'include',
     endpoints: (builder) => ({
         
