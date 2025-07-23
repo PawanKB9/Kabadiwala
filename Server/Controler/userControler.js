@@ -49,12 +49,12 @@ export const signUp = async (req, res) => {
         // res.cookie('token', token, {
         //   httpOnly: true,
         //   secure: true,
-        //   sameSite: 'strict'
+        //   sameSite: 'none'
         // });
         res.cookie('token', token, {
           httpOnly: true,
           secure: true, // ✅ Only use `true` in production over HTTPS
-          sameSite: 'strict' // Or 'strict' if working
+          sameSite: 'none' // Or 'none' if working
         });
 
 
@@ -88,11 +88,11 @@ export const login = async (req, res) => {
         }
         const token = generateToken(existingUser._id);
         // use this in production
-        // res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'strict' });
+        // res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'none' });
         res.cookie('token', token, {
           httpOnly: true,
           secure: true, // ✅ Only use `true` in production over HTTPS
-          sameSite: 'none' // Or 'strict' if working
+          sameSite: 'none' // Or 'none' if working
         });
         return res.status(200).json({
             message: 'Login successful',
@@ -108,7 +108,7 @@ export const login = async (req, res) => {
 // logout controller to handle user logout
 export const logout = async (req, res) => {
     try {
-        res.clearCookie('token', { httpOnly: true, secure: true, sameSite: 'strict' });
+        res.clearCookie('token', { httpOnly: true, secure: true, sameSite: 'none' });
         res.status(200).json({ message: 'Logout successful' });
     } catch (err) {
         console.error(err);
@@ -273,11 +273,11 @@ export const forgotPassword = async ( req , res ) =>{
 
       const token = generateToken(User._id);
         // use this in production
-        // res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'strict' });
+        // res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'none' });
         res.cookie('token', token, {
           httpOnly: true,
           secure: true, // ✅ Only use `true` in production over HTTPS
-          sameSite: 'strict' // Or 'strict' if working
+          sameSite: 'none' // Or 'none' if working
         });
 
       return res.status(200).json('password updated successfully');
