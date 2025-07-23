@@ -8,7 +8,7 @@ import connectDB from './Database/ConnectDB.js';
 import cookieParser from 'cookie-parser';
 
 dotenv.config();
-
+const PORT = process.env.PORT || 5000;
 const app = express();
 
 connectDB();
@@ -22,6 +22,6 @@ app.use(`/https://kabadiwala-1.onrender.com/user`, userRoutes);
 app.use(`/https://kabadiwala-1.onrender.com/admin`, adminRoute);
 app.use(`/https://kabadiwala-1.onrender.com/order`, orderRoute);
 
-app.listen(5000, () => {
-  console.log('🚀 Server running on http://localhost:5000');
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
