@@ -47,7 +47,7 @@ const LoginForm = () => {
       setPhone(''); // ✅ Avoids controlled/uncontrolled warning
       setPassword('');
     } catch (err) {
-      // console.error('Login failed:', err);
+       console.error('Login failed:', err);
       toast.error(err?.data?.message || 'Login failed');
     }
   };
