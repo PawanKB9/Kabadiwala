@@ -123,7 +123,7 @@ export const tempMalikLogin = async (req, res) => {
 
     res.cookie('token', token, {
       httpOnly: true,
-      secure: false, // Set true in prod with HTTPS
+      secure: true, // Set true in prod with HTTPS
       sameSite: 'lax'
     });
 console.log("hii",user)
