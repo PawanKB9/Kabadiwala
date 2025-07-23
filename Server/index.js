@@ -18,9 +18,9 @@ app.use(cors({ origin: 'https://kabadiwala-1.onrender.com', credentials: true })
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(`/https://kabadiwala-1.onrender.com/user`, userRoutes);
-app.use(`/https://kabadiwala-1.onrender.com/admin`, adminRoute);
-app.use(`/https://kabadiwala-1.onrender.com/order`, orderRoute);
+app.use(`/user`, userRoutes);
+app.use(`/admin`, adminRoute);
+app.use(`/order`, orderRoute);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
