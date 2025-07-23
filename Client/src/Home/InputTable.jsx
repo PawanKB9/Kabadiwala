@@ -8,10 +8,11 @@ const recyclingLogo =
 const materialOptions = [
   "Raddi (Old news paper)",
   "Plastic",
-  "Tin",
+  "Mixed paper",
   "Iron",
-  "Glass",
+  "Carton (Gatta)",
   "Copper",
+  "Aluminium",
 ];
 
 const DynamicTable = () => {
