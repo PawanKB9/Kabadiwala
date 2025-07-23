@@ -87,17 +87,19 @@ export const login = async (req, res) => {
             return res.status(400).json({ message: 'Invalid phone or password' });
         }
         const token = generateToken(existingUser._id);
-        // use this in production
-        // res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'none' });
         res.cookie('token', token, {
           httpOnly: true,
-          secure: true, // ✅ Only use `true` in production over HTTPS
-          sameSite: 'none' // Or 'none' if working
+          secure: true, // Only true in production
+          sameSite: 'none', // none for cross-site, lax for local dev
         });
         return res.status(200).json({
-            message: 'Login successful',
-            user: existingUser,
-            token
+          message: 'Login successful',
+          user: {
+            _id: existingUser._id,
+            username: existingUser.username,
+            email: existingUser.email,
+            // add other safe fields only
+          }
         });
     } catch (err) {
         console.error(err);
