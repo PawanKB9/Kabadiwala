@@ -51,23 +51,23 @@ export const signUp = async (req, res) => {
         //   secure: true,
         //   sameSite: 'none'
         // });
-        res.cookie('token', token, {
+        return res.cookie('token', token, {
           httpOnly: true,
           secure: true, // ✅ Only use `true` in production over HTTPS
-          sameSite: 'none' // Or 'none' if working
+          sameSite: 'strict' // Or 'none' if working
         });
 
 
-    res.status(201).json({
-      message: 'User created successfully',
-      user: {
-        id: newUser._id,
-        name: newUser.name,
-        phone: newUser.phone,
-        location: newUser.location
-      },
-      token
-    });
+    // res.status(201).json({
+    //   message: 'User created successfully',
+    //   user: {
+    //     id: newUser._id,
+    //     name: newUser.name,
+    //     phone: newUser.phone,
+    //     location: newUser.location
+    //   },
+    //   token
+    // });
   } catch (err) {
     console.error('❌ signUp error:', err);
     res.status(500).json({ message: 'Internal server error' });
@@ -87,20 +87,20 @@ export const login = async (req, res) => {
             return res.status(400).json({ message: 'Invalid phone or password' });
         }
         const token = generateToken(existingUser._id);
-        res.cookie('token', token, {
+        return res.cookie('token', token, {
           httpOnly: true,
           secure: true, // Only true in production
-          sameSite: 'none', // none for cross-site, lax for local dev
+          sameSite: 'strict', // none for cross-site, lax for local dev
         });
-        return res.status(200).json({
-          message: 'Login successful',
-          user: {
-            _id: existingUser._id,
-            username: existingUser.username,
-            email: existingUser.email,
-            // add other safe fields only
-          }
-        });
+        // return res.status(200).json({
+        //   message: 'Login successful',
+        //   user: {
+        //     _id: existingUser._id,
+        //     username: existingUser.username,
+        //     email: existingUser.email,
+        //     // add other safe fields only
+        //   }
+        // });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Internal server error' });
@@ -110,7 +110,7 @@ export const login = async (req, res) => {
 // logout controller to handle user logout
 export const logout = async (req, res) => {
     try {
-        res.clearCookie('token', { httpOnly: true, secure: true, sameSite: 'none' });
+        res.clearCookie('token', { httpOnly: true, secure: true, sameSite: 'strict' });
         res.status(200).json({ message: 'Logout successful' });
     } catch (err) {
         console.error(err);
@@ -276,13 +276,13 @@ export const forgotPassword = async ( req , res ) =>{
       const token = generateToken(User._id);
         // use this in production
         // res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'none' });
-        res.cookie('token', token, {
+       return res.cookie('token', token, {
           httpOnly: true,
           secure: true, // ✅ Only use `true` in production over HTTPS
-          sameSite: 'none' // Or 'none' if working
+          sameSite: 'strict' // Or 'none' if working
         });
 
-      return res.status(200).json('password updated successfully');
+      // return res.status(200).json('password updated successfully');
 
     } catch (err) {
         console.log(err)
