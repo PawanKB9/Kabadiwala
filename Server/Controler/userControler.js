@@ -91,7 +91,7 @@ export const login = async (req, res) => {
           httpOnly: true,
           secure: true, // Only true in production
           sameSite: 'strict', // none for cross-site, lax for local dev
-        });
+        }).json({message: 'Login successful'});
         // return res.status(200).json({
         //   message: 'Login successful',
         //   user: {
