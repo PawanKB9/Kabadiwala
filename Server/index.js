@@ -17,6 +17,11 @@ connectDB();
 
 // CORS for frontend (React/Vite)
 app.use(cors({ origin: 'https://kabadiwala-1.onrender.com', credentials: true }));
+app.use(cors({
+  origin: 'https://kabadiwala.onrender.com', // Your frontend domain
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(cookieParser());
 
