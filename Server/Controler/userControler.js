@@ -51,11 +51,13 @@ export const signUp = async (req, res) => {
         //   secure: true,
         //   sameSite: 'none'
         // });
-        return res.cookie('token', token, {
+        res.cookie('token', token, {
           httpOnly: true,
-          secure: true, // ✅ Only use `true` in production over HTTPS
-          sameSite: 'strict' // Or 'none' if working
-        });
+          secure: true,
+          sameSite: 'none',
+          maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+        }).json({message: 'User created successfully'});
+
 
 
     // res.status(201).json({
@@ -89,8 +91,9 @@ export const login = async (req, res) => {
         const token = generateToken(existingUser._id);
         return res.cookie('token', token, {
           httpOnly: true,
-          secure: true, // Only true in production
-          sameSite: 'strict', // none for cross-site, lax for local dev
+          secure: true,
+          sameSite: 'none',
+          maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         }).json({message: 'Login successful'});
         // return res.status(200).json({
         //   message: 'Login successful',
