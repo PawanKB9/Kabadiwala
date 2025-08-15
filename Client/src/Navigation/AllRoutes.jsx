@@ -114,7 +114,7 @@ const UserLayout = () => {
 };
 
 const ProtectedUserRoute = ({ userData, isLoading, children }) => {
-  if (isLoading) return <div className="text-center mt-20 text-blue-500">Loading user...</div>;
+  if (isLoading) return <div className="text-center mt-20 text-blue-500">Please wait Its free deployed website takes time to Load  <br /> Loading......</div>;
   if (!userData) return <Navigate to="/signup" replace />;
   if (userData?.role === 'admin') return <Navigate to="/admin/login" replace />;
   return children;
