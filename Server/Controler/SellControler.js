@@ -18,11 +18,15 @@ console.log('ready to book')
         return (
           item.material &&
           typeof item.material === "string" &&
+          item.material != "Select Material" &&
           item.weight !== "" &&
           !isNaN(item.weight) &&
           Number(item.weight) > 0
         );
       });
+    if(!filteredItems || !Array.isArray(filteredItems) || filteredItems.length === 0){
+      return res.status(400).json({ message: 'Please enter Valid material and Weight' });
+    }
     const rawRates = await getPriceFn(area);
 
     // Convert array to map { material: rate }
