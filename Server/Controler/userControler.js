@@ -79,49 +79,59 @@ export const signUp = async (req, res) => {
 
 // login controller to handle user authentication
 export const login = async (req, res) => {
-    try {
-        const { phone, password } = req.body;
-        const existingUser = await users.findOne({ phone });
-        if (!existingUser) {
-            return res.status(400).json({ message: 'Invalid phone or password' });
-        }
-        const isMatch = await comparePassword(password, existingUser.password);
-        if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid phone or password' });
-        }
-        const token = generateToken(existingUser._id);
-        return res.cookie('token', token, {
-          httpOnly: true,
-          secure: true,
-          sameSite: 'none',
-          domain: '.kabadiwala.onrender.com',
-          maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-        }).json({message: 'Login successful'});
-        // return res.status(200).json({
-        //   message: 'Login successful',
-        //   user: {
-        //     _id: existingUser._id,
-        //     username: existingUser.username,
-        //     email: existingUser.email,
-        //     // add other safe fields only
-        //   }
-        // });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Internal server error' });
+  try {
+    const { phone, password } = req.body;
+
+    const existingUser = await users.findOne({ phone });
+    if (!existingUser) {
+      return res.status(400).json({ message: 'Invalid phone or password' });
     }
-}
+
+    const isMatch = await comparePassword(password, existingUser.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid phone or password' });
+    }
+
+    const token = generateToken(existingUser._id);
+
+    // Different cookie configs for local vs production
+    const isProduction = process.env.NODE_ENV === 'production';
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: isProduction,                        // Only true in production (HTTPS)
+      sameSite: isProduction ? 'none' : 'lax',     // 'none' for cross-site in production
+      domain: isProduction ? '.kabadiwala.onrender.com' : undefined,
+      path: '/',                                   // Important: match this in logout
+      maxAge: 7 * 24 * 60 * 60 * 1000,             // 7 days
+    });
+
+    return res.status(200).json({ message: 'Login successful' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 // logout controller to handle user logout
 export const logout = async (req, res) => {
-    try {
-        res.clearCookie('token', { httpOnly: true, secure: true, sameSite: 'strict' });
-        res.status(200).json({ message: 'Logout successful' });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-}
+  try {
+    const isProduction = process.env.NODE_ENV === 'production';
+
+    res.clearCookie('token', {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
+      domain: isProduction ? '.kabadiwala.onrender.com' : undefined,
+      path: '/', // must match login cookie
+    });
+
+    res.status(200).json({ message: 'Logout successful' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 // get Current user profile controller to fetch user details
 export const getCurrentUser = async (req, res) => {
