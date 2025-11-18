@@ -11,7 +11,7 @@ const ContactActions = ({ phoneNumber = "+91 9876543210" }) => {
       </h2>
 
       <p className="text-green-600 text-base sm:text-lg text-center max-w-2xl mx-auto mb-6">
-        Recycle the smart way with B Tech Kabadiwala — offering flexible, door-to-door scrap pickup and instant payment at your doorstep. No waiting, no worries — just tap, schedule, and earn while helping the planet!
+        Recycle the smart way with Online Kabadiwala — offering flexible, door-to-door scrap pickup and instant payment at your doorstep. No waiting, no worries — just tap, schedule, and earn while helping the planet!
       </p>
 
 
